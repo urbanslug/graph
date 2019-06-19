@@ -34,6 +34,7 @@
                       (begin0 (format "node~a" node-count)
                               (set! node-count (add1 node-count))))))
        (printf "digraph G {\n")
+       (printf "\trankdir=\"LR\";")
        ; Add vertices, color them using evenly spaced HSV colors if given colors
        (define color-count (and colors (add1 (apply max (hash-values colors)))))
     (for ([v (in-vertices g)])
@@ -44,7 +45,7 @@
                  (~a #:max-width 5
                      (exact->inexact (/ (hash-ref colors v #f) color-count))))]
         [else
-         (printf "\t~a [label=~a];\n"
+         (printf "\t~a [shape=box; label=~a];\n"
                  (node-id-table-ref! v)
                  (sanatize-name v))]))
         
